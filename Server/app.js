@@ -6,23 +6,10 @@ const app = express()
 
 const PORT = process.env.PORT
 
+const userRoutes = require('./Routes/userRoute')
 
-app.get('/',(req,res)=>{
-    res.send("<h1>The server is up and running...</h1>")
-})
+app.use("/api/users",userRoutes);
 
-
-app.post('/api/users/register',(req,res)=>{
-    res.send('Register User')
-})
-
-app.post('/api/users/login',(req,res)=>{
-    res.send('Login User')
-})
-
-app.get('/apt/users/check',(req,res)=>{
-    res.send('Check User')
-})
 
 app.listen(PORT,(err)=>{
     if (err) {
