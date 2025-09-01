@@ -1,3 +1,4 @@
+const { landing } = require('./Controller/userController')
 const express = require('express')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -10,6 +11,7 @@ const userRoutes = require('./Routes/userRoute')
 
 app.use("/api/users",userRoutes);
 
+app.get("/", landing);
 
 app.listen(PORT,(err)=>{
     if (err) {
