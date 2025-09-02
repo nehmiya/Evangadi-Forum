@@ -8,7 +8,7 @@ const db = mysql.createPool({
   user: process.env.user,
   password: process.env.password,
   host: process.env.host,
-  database: process.env.database,
+  database:"evangadi-db",
   connectionLimit: 10,
 });
 
