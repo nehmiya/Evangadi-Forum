@@ -52,7 +52,44 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  res.send("Login User");
+  const {email,password} = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({
+      err: "Please provide all the required Credentials!!"
+    })
+  }
+
+  try {
+    const checkUser = `SELECT username,userID,password FROM users WHERE email=?`
+    const [user] = await db.query(checkUser, [email])
+
+    if (user.length == 0) {
+      return res.status(400).json({
+        msg: "Invalid Credentials!"
+      })
+    }
+
+    
+      const checkPass = await bcrypt.compare(password,user[0].password)
+      
+      if(!checkPass) {
+        res.status(400).json({
+          mdg: "Invaild Credentials!"
+        })
+      }
+
+      return res.json({
+        user:user
+      })
+      
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(500)
+      .json({ msg: "Something went wrong, Please Try Again Later!" });
+  }
+
 };
 
 const check = async (req, res) => {

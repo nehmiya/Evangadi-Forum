@@ -18,8 +18,11 @@ app.get("/", landing);
 
 async function start (){
     try {
-    const result = await db.connect
-    console.log("DB Connected!!!")
+    const result = await db.getConnection();
+   if (result) {
+     console.log('DB Connected!!');
+   }
+   
     app.listen(PORT)
     console.log(`Listening on PORT: ${PORT}`)
    
