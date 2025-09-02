@@ -1,4 +1,5 @@
 const { landing } = require('./Controller/userController')
+const db = require('./DB/dbConfig')
 const express = require('express')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -13,10 +14,19 @@ app.use("/api/users",userRoutes);
 
 app.get("/", landing);
 
-app.listen(PORT,(err)=>{
-    if (err) {
-        console.log("Err: ", err.message)
-    }
 
-    console.log(`The server is running on http://127.0.0.1:${PORT}`)
-})
+async function start (){
+    try {
+    const result = await db.connect
+    console.log("DB Connected!!!")
+    app.listen(PORT)
+    console.log(`Listening on PORT: ${PORT}`)
+   
+} catch (error) {
+    console.log("Err: ",error.message)
+}
+
+}
+
+start();
+

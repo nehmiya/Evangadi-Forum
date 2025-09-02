@@ -12,10 +12,4 @@ const db = mysql.createPool({
   connectionLimit: 10,
 });
 
-db.getConnection((err) => {
-  if (err) {
-    console.log("Err:", err.message);
-  } else {
-    console.log("The DB have been Connected!!!");
-  }
-});
+module.exports = db.promise()
