@@ -1,5 +1,6 @@
 const db = require("../DB/dbConfig");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken')
 
 
 const landing = async (req, res) => {
@@ -79,9 +80,17 @@ const login = async (req, res) => {
         })
       }
 
+      const username = user[0].username
+      const userID = user[0].userID
+
+      const token = jwt.sign({username,userID},"secret", {expiresIn: "1d"})
       return res.json({
-        user:user
+        msg: `User auth Token: ${token}`
       })
+
+      // return res.json({
+      //   user:user
+      // })
       
   } catch (error) {
     console.log(error.message);
