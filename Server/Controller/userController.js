@@ -1,6 +1,11 @@
 const db = require("../DB/dbConfig");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken')
+const {StatusCodes}  = require('http-status-codes')
+const dotenv = require('dotenv')
+
+dotenv.config()
+
 
 
 const landing = async (req, res) => {
@@ -83,9 +88,12 @@ const login = async (req, res) => {
       const username = user[0].username
       const userID = user[0].userID
 
-      const token = jwt.sign({username,userID},"secret", {expiresIn: "1d"})
+      const token = jwt.sign({ username, userID }, process.env.JWT_SECRET, {
+        expiresIn: "1d",
+      });
       return res.json({
-        msg: `User auth Token: ${token}`
+        msg: `User auth Token: ${token}`,
+        token
       })
 
       // return res.json({
@@ -102,7 +110,13 @@ const login = async (req, res) => {
 };
 
 const check = async (req, res) => {
-  res.send("Check User");
+  const username = req.user.username
+  const userID = req.user.userID
+  res.status(StatusCodes.OK).json({
+    msg: "Valid User.",
+    username,
+    userID
+  })
 };
 
 module.exports = { landing, register, login, check };
