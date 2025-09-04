@@ -5,10 +5,10 @@ dotenv.config();
 
 
 const db = mysql.createPool({
-  user: process.env.user,
-  password: process.env.password,
-  host: process.env.host,
-  database:"evangadi-db",
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  host: process.env.HOST,
+  database: process.env.DATABASE,
   connectionLimit: 10,
 });
 
