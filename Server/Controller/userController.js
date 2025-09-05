@@ -81,7 +81,7 @@ const login = async (req, res) => {
       
       if(!checkPass) {
         res.status(400).json({
-          mdg: "Invaild Credentials!"
+          msg: "Invaild Credentials!"
         })
       }
 
@@ -92,8 +92,9 @@ const login = async (req, res) => {
         expiresIn: "1d",
       });
       return res.json({
-        msg: `User auth Token: ${token}`,
-        token
+        msg: `User Logged In`,
+        token: token,
+        username: username
       })
 
       // return res.json({
