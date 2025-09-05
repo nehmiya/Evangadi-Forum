@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { data, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../../Utils/axiosConfig";
 
 function Login() {
@@ -18,8 +18,8 @@ function Login() {
               });
 
               alert("User registered successfully!!!")
-              // navigate('/home')
               localStorage.setItem('token',data?.token)
+              navigate('/home')
               
 
         } catch (error) {
@@ -49,6 +49,7 @@ function Login() {
         </div>
         <button type="submit">Login</button>
       </form>
+      <Link to={"/register"}>Register</Link>
     </section>
   );
 }
